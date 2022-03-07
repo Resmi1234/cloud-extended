@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Skydash Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'admin/vendors/feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/vendors/ti-icons/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/vendors/css/vendor.bundle.base.css' %}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'admin/css/vertical-layout-light/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'admin/images/Clouds-og-cpy.png' %}" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class= "header-logo">
+            <a href="data_owner_register.html" class="logo">
+              <img src="{% static 'home/assets/images/Clouds-og-cpy.png' %}" alt="Chain App Dev">
+            </a>
+              </div><br>
+
+              <h4>New here?</h4>
+              <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+              <form class="pt-3" action="#" method="post">{% csrf_token %}
+                <div class="form-group">
+                    {{login_form|crispy}}
+                    {{receiver_form|crispy}}
+
+                </div>
+
+
+
+
+                <div class="mt-3">
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">Register</button>
+                </div>
+                <div class="text-center mt-4 font-weight-light">
+                  Already have an account? <a href="{% url 'login_view' %}" class="text-primary">Login</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="{% static 'admin/vendors/js/vendor.bundle.base.js' %}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{% static 'admin/js/off-canvas.js' %}"></script>
+  <script src="{% static 'admin/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'admin/js/template.js' %}"></script>
+  <script src="{% static 'admin/js/settings.js' %}"></script>
+  <script src="{% static 'admin/js/todolist.js' %}"></script>
+  <!-- endinject -->
+</body>
+{% endblock %}
+</html>

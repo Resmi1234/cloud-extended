@@ -1,0 +1,14 @@
+{% extends 'owner/upload_owner.html' %}
+{% block replace %}
+<CENTER>
+<div class="jumbotron">
+  <h4>your file has been uploaded successfully<br> {{ file.Title }}</h4>
+  <p class="lead">Thank you for uploading</p>
+  <hr class="my-4">
+  <img src="{{ file.Files.url }}" class="image_responsive" height="100px" width="100px">
+  <p>
+    {{ file.Files.url }}<BR>
+</p>
+</div>
+</CENTER>
+{% endblock %}

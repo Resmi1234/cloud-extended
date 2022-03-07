@@ -1,0 +1,15 @@
+{% extends 'receiver/data_receiver_panel.html' %}
+{% block content %}
+
+{% for i in  receiver_view_file %}
+<h2>{{i.Name}}</h2>
+<ul>
+<li><i class="fa fa-building"></i>
+Files : {{i.Files}}</li>
+</ul>
+
+<a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+<!--<a href="{% url 'file_delete' i.id %}" class="btn btn-outline-danger btn-sm">Delete</a>-->
+
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'owner/data_owner_panel.html' %}
+{% block content %}
+
+{% for i in view_file %}
+<h2>{{i.Name}}</h2>
+<ul>
+<li><i class="fa fa-building"></i>
+Files : {{i.Files}}</li>
+</ul>
+
+<a href="{{i.Files.url}}" download type="button" class="btn btn-outline-primary btn-sm">Download</a>
+<a href="{% url 'file_delete' i.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+
+{% endfor %}
+{% endblock %}
