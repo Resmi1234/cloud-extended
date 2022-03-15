@@ -9,8 +9,9 @@ class Login(AbstractUser):
     is_dataowner = models.BooleanField(default=False)
     is_datareceiver = models.BooleanField(default=False)
 
+
 class Owner(models.Model):
-    User = models.OneToOneField(Login, on_delete=models.CASCADE, related_name='dataowner')
+    User = models.ForeignKey(Login, on_delete=models.CASCADE, related_name='dataowner')
     Name = models.CharField(max_length=200)
     Contact_No = PhoneNumberField(unique=True, null=False, blank=False)
     Email = models.EmailField()
@@ -18,9 +19,10 @@ class Owner(models.Model):
 
     def __str__(self):
         return self.Name
+
 
 class Receiver(models.Model):
-    User = models.OneToOneField(Login, on_delete=models.CASCADE, related_name='datareceiver')
+    User = models.ForeignKey(Login, on_delete=models.CASCADE, related_name='datareceiver')
     Name = models.CharField(max_length=200)
     Contact_No = PhoneNumberField(unique=True, null=False, blank=False)
     Email = models.EmailField()
@@ -28,15 +30,23 @@ class Receiver(models.Model):
 
     def __str__(self):
         return self.Name
-
-# class Document(models.Model):
-    # docfile = models.FileField(upload_to='documents/%Y/%m/%d')
-
 
 
 class Upload(models.Model):
+    User = models.ForeignKey(Login, on_delete=models.CASCADE)
     Title = models.CharField(max_length=50)
     Description = models.TextField()
-    Files = models.FileField(unique=True)
+    Files = models.FileField()
 
 
+class Request(models.Model):
+    User = models.ForeignKey(Login, on_delete=models.DO_NOTHING)
+    Name = models.CharField(max_length=100)
+    Email = models.EmailField()
+    File_Name = models.CharField(max_length=100)
+    Message = models.TextField()
+    Status = models.IntegerField(default=0)
+
+
+    def __str__(self):
+        return self.Name

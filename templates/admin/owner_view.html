@@ -1,0 +1,77 @@
+<!doctype html>
+{% extends 'admin/central_authority.html' %}
+{% block content %}
+{% load static %}
+
+<html lang="en">
+  <head>
+  	<title>owner_view</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="{% static 'Admin/Tables/css/style.css' %}">
+
+	</head>
+	<body>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+<!--				<div class="col-md-6 text-center mb-5">-->
+<!--					<h2 class="heading-section"></h2>-->
+<!--				</div>-->
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="text-center mb-4">Data Owner Details</h3>
+					<div class="table-wrap">
+						<table class="table">
+					    <thead class="thead-primary">
+					      <tr>
+					        <th>SI.No</th>
+					        <th>Name</th>
+					        <th>Contact_No</th>
+					        <th>Email</th>
+					        <th>Address</th>
+
+
+							<th>Delete</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+						{% for i in Owner %}
+					      <tr>
+					        <th>{{forloop.counter}} </th>
+					        <td>{{i.Name}}</td>
+					        <td>{{i.Contact_No}}</td>
+					        <td>{{i.Email}}</td>
+					        <td>{{i.Address}}</td>
+
+
+<!--					        <td><a href="#" class="btn btn-primary">Update</a></td>-->
+							<td> <a href="{% url 'owner_delete' i.id %}" class="btn btn-outline-danger btn-sm">Delete</a></td>
+
+
+					      </tr>
+						{% endfor %}
+
+					    </tbody>
+					  </table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="{% static 'Admin/Tables/js/jquery.min.js' %}"></script>
+  <script src="{% static 'Admin/Tables/js/popper.js' %}"></script>
+  <script src="{% static 'Admin/Tables/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'Admin/Tables/js/main.js' %}"></script>
+
+	</body>
+{% endblock %}
+</html>
+

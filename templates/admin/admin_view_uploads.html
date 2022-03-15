@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% extends 'admin/central_authority.html' %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% for i in admin_view_file %}
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header"><strong> </strong></div>
+        <div class="card-body card-block">
+            <form method="post">
+<h4>Title: {{i.Title}}</h4>
+<h5>Description: {{i.Description}}</h5>
+<ul>
+<li><i class="fa fa-building"></i>
+File : {{i.Files}}</li>
+</ul>
+<!--                <a href="{{i.Files.url}}" download type="button" class="btn btn-outline-primary btn-sm">Download</a>-->
+<!--<a href="{% url 'file_delete' i.id %}" class="btn btn-outline-danger btn-sm">Delete</a>-->
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+
+{% endfor %}
+{% endblock %}
+</html>

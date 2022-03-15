@@ -1,13 +1,13 @@
-import os.path
+
 
 from django import forms
-from django.conf import settings
+
 from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
+
 
 from phonenumber_field.modelfields import PhoneNumberField
 
-from extendedcloudapp.models import Login, Receiver, Owner, Upload
+from extendedcloudapp.models import Login, Receiver, Owner, Upload, Request
 
 
 class LoginRegister(UserCreationForm):
@@ -51,11 +51,9 @@ class UploadForm(forms.ModelForm):
         ]
 
 
-    def clean_file(self):
-        Files = self.cleaned_data.get("Files", False)
-        destination = settings.MEDIA_ROOT + '/media/'
-        if os.path.isfile(destination + Files.name):
-            raise forms.ValidationError(
-                'A file with the name "' + Files.name + '" already exists. Please, rename your file and try again.')
-        else:
-            return Files
+
+
+class RequestForm(forms.ModelForm):
+    class Meta:
+        model = Request
+        fields = ('Name', 'Email', 'File_Name', 'Message', 'Status')

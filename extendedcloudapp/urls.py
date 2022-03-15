@@ -19,6 +19,18 @@ urlpatterns = [
     path('receiver_view_file',views.receiver_view_file, name= 'receiver_view_file'),
     path('profile_view',views.profile_view, name='profile_view'),
     path('file_delete/<int:id>/', views.file_delete, name='file_delete'),
+    path('owner_view', views.owner_view, name='owner_view'),
+    path('owner_delete/<int:id>/', views.owner_delete, name='owner_delete'),
+    path('view_profile', views.view_profile, name='view_profile'),
+    path('receiver_view', views.receiver_view, name='receiver_view'),
+    path('receiver_delete/<int:id>/', views.receiver_delete, name='receiver_delete'),
+    path('send_request', views.send_request, name='send_request'),
+    path('view_request', views.view_request, name='view_request'),
+    path('confirm_request/<int:id>/', views.confirm_request, name='confirm_request'),
+    path('reject_request/<int:id>/', views.reject_request, name='reject_request'),
+    path('admin_view_file', views.admin_view_file, name='admin_view_file'),
+    path('view_status', views.view_status, name='view_status'),
+    path('view_user_download', views.view_user_download, name='view_user_download')
 
 
 

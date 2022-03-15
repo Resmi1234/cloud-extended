@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% extends 'receiver/data_receiver_panel.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+{% for i in user %}
+<div class="card text-center">
+  <div class="card-header">
+  </div>
+  <div class="card-body">
+
+
+  </div>
+  <hr>
+<div class="row">
+                    <div class="col-lg-6">
+                      Name
+                    </div>
+                    <div class="col-lg-2">
+                      :
+                    </div>
+                    <div class="col-lg-2">
+                      {{i.Name}}
+                    </div>
+                  </div>
+  <div class="row">
+                    <div class="col-lg-6">
+                      Contact_No
+                    </div>
+                    <div class="col-lg-2">
+                      :
+                    </div>
+                    <div class="col-lg-2">
+                      {{i.Contact_No}}
+                    </div>
+                  </div>
+  <div class="row">
+                    <div class="col-lg-6">
+                      Email
+                    </div>
+                    <div class="col-lg-2">
+                      :
+                    </div>
+                    <div class="col-lg-2">
+                      {{i.Email}}
+                    </div>
+                  </div>
+  <div class="row">
+                    <div class="col-lg-6">
+                      Address
+                    </div>
+                    <div class="col-lg-2">
+                      :
+                    </div>
+                    <div class="col-lg-2">
+                      {{i.Address}}
+                    </div>
+                  </div>
+
+</div>
+{% endfor %}
+</body>
+{% endblock %}
+</html>

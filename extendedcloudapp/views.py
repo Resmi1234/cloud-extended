@@ -6,9 +6,9 @@ from django.shortcuts import render, redirect
 # Create your views here.
 
 
-from extendedcloudapp.forms import LoginRegister, ReceiverRegister, OwnerRegister, UploadForm
+from extendedcloudapp.forms import LoginRegister, ReceiverRegister, OwnerRegister, UploadForm, RequestForm
 
-from extendedcloudapp.models import Upload, Owner
+from extendedcloudapp.models import Upload, Owner, Receiver, Request
 
 
 def index(request):
@@ -16,7 +16,7 @@ def index(request):
 
 
 def cenrtal_authority(request):
-    return render(request, 'central_authority.html')
+    return render(request, 'admin/central_authority.html')
 
 
 def data_owner_register(request):
@@ -89,13 +89,13 @@ def data_receiver_panel(request):
 
 # FILE_TYPES = ['png', 'jpg', 'jpeg','pdf']
 
-
 def upload_files_owner(request):
     form = UploadForm()
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
             file = form.save(commit=False)
+            file.User = request.user
             file.Files = request.FILES['Files']
             file_type = file.Files.url.split('.')[-1]
             file_type.lower()
@@ -105,14 +105,16 @@ def upload_files_owner(request):
     return render(request, 'owner/upload_owner.html', context)
 
 
+
 def view_file(request):
-    f = Upload.objects.all()
-    return render(request, 'Owner/owner_view_uploads.html', {'view_file': f})
+    f = request.user
+    u = Upload.objects.filter(User=f)
+    return render(request, 'owner/owner_view_uploads.html', {'view_file': u})
 
 
 def receiver_view_file(request):
-    f = Upload.objects.all()
-    return render(request, 'receiver/receiver_view_uploads.html', {'receiver_view_file': f})
+    user = Upload.objects.all()
+    return render(request, 'receiver/receiver_view_uploads.html', {'receiver_view_file': user})
 
 
 def file_delete(request, id):
@@ -125,3 +127,69 @@ def profile_view(request):
     u = request.user
     user = Owner.objects.filter(User=u)
     return render(request, 'owner/profile_view.html', {'user': user})
+
+def owner_view(request):
+    o=Owner.objects.all()
+    return render(request,'admin/owner_view.html',{'Owner':o})
+
+def owner_delete(request,id):
+    n =Owner.objects.get(id=id)
+    n.delete()
+    return redirect('owner_view')
+
+def view_profile(request):
+    u = request.user
+    user = Receiver.objects.filter(User=u)
+    return render(request, 'receiver/view_profile.html', {'user': user})
+
+def receiver_view(request):
+    r=Receiver.objects.all()
+    return render(request,'admin/receiver_view.html',{'Receiver':r})
+
+def receiver_delete(request,id):
+    n =Receiver.objects.get(id=id)
+    n.delete()
+    return redirect('receiver_view')
+
+
+def send_request(request):
+    form = RequestForm()
+    u = request.user
+    if request.method == 'POST':
+        form = RequestForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.User = u
+            form.save()
+            return redirect('send_request')
+    else:
+        return render(request, 'receiver/send_request.html', {'form': form})
+
+def view_request(request):
+    a = Request.objects.all()
+    return render(request, 'admin/view_request.html', {'Request': a})
+
+def confirm_request(request,id):
+    req= Request.objects.get(id=id)
+    req.Status = 1
+    req.save()
+    return redirect('view_request')
+
+def reject_request(request,id):
+    req= Request.objects.get(id=id)
+    req.Status = 2
+    req.save()
+    return redirect('view_request')
+
+def admin_view_file(request):
+    us = Upload.objects.all()
+    return render(request, 'admin/admin_view_uploads.html', {'admin_view_file': us})
+
+def view_status(request):
+    u= request.user
+    req=Request.objects.filter(User=u)
+    return render(request,'receiver/view_status.html', {'Request': req})
+
+def view_user_download(request):
+    req=Request.objects.filter(Status=1)
+    return render(request,'owner/view_user_download.html', {'Request': req})
