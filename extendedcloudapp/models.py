@@ -36,7 +36,7 @@ class Upload(models.Model):
     User = models.ForeignKey(Login, on_delete=models.CASCADE)
     Title = models.CharField(max_length=50)
     Description = models.TextField()
-    Files = models.FileField()
+    Files = models.FileField(upload_to='', unique=True)
 
 
 class Request(models.Model):

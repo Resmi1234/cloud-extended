@@ -51,6 +51,13 @@ class UploadForm(forms.ModelForm):
         ]
 
 
+        def clean_file(self):
+            Files = self.cleaned_data.get('Files')
+            for instance in Upload.objects.all():
+                if instance.Files == Files:
+                    raise forms.ValidationError('Upload with this Files already exists' + Files)
+            return Files
+
 
 
 class RequestForm(forms.ModelForm):

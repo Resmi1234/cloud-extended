@@ -1,3 +1,7 @@
+import os
+
+from cryptography.fernet import Fernet
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
@@ -9,6 +13,7 @@ from django.shortcuts import render, redirect
 from extendedcloudapp.forms import LoginRegister, ReceiverRegister, OwnerRegister, UploadForm, RequestForm
 
 from extendedcloudapp.models import Upload, Owner, Receiver, Request
+
 
 
 def index(request):
@@ -89,6 +94,22 @@ def data_receiver_panel(request):
 
 # FILE_TYPES = ['png', 'jpg', 'jpeg','pdf']
 
+# def upload_files_owner(request):
+#     form = UploadForm()
+#     if request.method == 'POST':
+#         form = UploadForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             file = form.save(commit=False)
+#             file.User = request.user
+#             file.Files = request.FILES['Files']
+#             file_type = file.Files.url.split('.')[-1]
+#             file_type.lower()
+#             file.save()
+#             return render(request, 'owner/confirm_upload.html', {'file': file})
+#     context = {"form": form, }
+#     return render(request, 'owner/upload_owner.html', context)
+#
+
 def upload_files_owner(request):
     form = UploadForm()
     if request.method == 'POST':
@@ -99,12 +120,67 @@ def upload_files_owner(request):
             file.Files = request.FILES['Files']
             file_type = file.Files.url.split('.')[-1]
             file_type.lower()
+            directory = os.getcwd()
+            file_name = directory + file.Files.url
+            # for instance in Upload.objects.all():
+            #     if instance.Files:
+            #         directory = os.getcwd()
+            #         file_name = directory+file.Files.url
             file.save()
+
+            class Encryptor():
+
+                def create_key(self):
+                    key = Fernet.generate_key()
+                    return key
+
+                def write_key(self, key, key_name):
+                    with open(key_name, 'wb') as mykey:
+                        mykey.write(key)
+
+                def load_key(self, key_name):
+                    with open(key_name, 'rb') as mykey:
+                        key = mykey.read()
+                    return key
+
+                def encrypt_file(self, key, original_file, encrypted_file):
+                    f = Fernet(key)
+
+                    with open(original_file, 'rb') as files:
+                        original = files.read()
+
+                    encrypted = f.encrypt(original)
+
+                    with open(encrypted_file, 'wb') as files:
+                        files.write(encrypted)
+
+                def decrypt_file(self, key, encrypted_file, decrypted_file):
+                    f = Fernet(key)
+
+                    with open(encrypted_file, 'rb') as files:
+                        encrypted = files.read()
+
+                    decrypted = f.decrypt(encrypted)
+
+                    with open(decrypted_file, 'wb') as files:
+                        files.write(decrypted)
+
+            encryptor = Encryptor()
+
+            mykey = encryptor.create_key()
+
+            encryptor.write_key(mykey, 'key.key')
+
+            loaded_key = encryptor.load_key('key.key')
+
+            encryptor.encrypt_file(loaded_key, file_name, file_name + 'enc_')
+
+            encryptor.decrypt_file(loaded_key, file_name + 'enc_', file_name + 'dec_')
+
             return render(request, 'owner/confirm_upload.html', {'file': file})
+
     context = {"form": form, }
     return render(request, 'owner/upload_owner.html', context)
-
-
 
 def view_file(request):
     f = request.user
@@ -188,8 +264,9 @@ def admin_view_file(request):
 def view_status(request):
     u= request.user
     req=Request.objects.filter(User=u)
-    return render(request,'receiver/view_status.html', {'Request': req})
+    return render(request, 'receiver/view_status.html', {'Request': req})
 
 def view_user_download(request):
     req=Request.objects.filter(Status=1)
-    return render(request,'owner/view_user_download.html', {'Request': req})
+    return render(request, 'owner/view_user_download.html', {'Request': req})
+

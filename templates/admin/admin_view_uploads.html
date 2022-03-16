@@ -10,11 +10,13 @@
 <body>
 
 {% for i in admin_view_file %}
+
 <div class="col-lg-6">
     <div class="card">
         <div class="card-header"><strong> </strong></div>
         <div class="card-body card-block">
             <form method="post">
+ <h3>Owner:{{i.Name}}</h3>
 <h4>Title: {{i.Title}}</h4>
 <h5>Description: {{i.Description}}</h5>
 <ul>

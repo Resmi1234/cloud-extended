@@ -30,7 +30,8 @@ urlpatterns = [
     path('reject_request/<int:id>/', views.reject_request, name='reject_request'),
     path('admin_view_file', views.admin_view_file, name='admin_view_file'),
     path('view_status', views.view_status, name='view_status'),
-    path('view_user_download', views.view_user_download, name='view_user_download')
+    path('view_user_download', views.view_user_download, name='view_user_download'),
+    # path('clean_my_file', views.clean_my_file, name='clean_my_file'),
 
 
 
