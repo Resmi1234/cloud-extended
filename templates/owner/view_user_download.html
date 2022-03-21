@@ -13,7 +13,7 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="{% static 'Admin/Tables/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'table/css/style.css' %}">
 
 	</head>
 	<body>
@@ -58,7 +58,7 @@
 							   <button type="submit" value="Approval confirmed" class="btn btn-success">Accepted</button>
 							  {% endif %}
 							 </td>
-                                <td><a href = "#"> send_key </a></td>
+                                <td><a href = "{% url 'send_mail' %}"> send_key </a></td>
 					      </tr>
 						{% endfor %}
 
@@ -70,10 +70,10 @@
 		</div>
 	</section>
 
-	<script src="{% static 'admin/table/js/jquery.min.js' %}"></script>
-  <script src="{% static 'admin/table/js/popper.js' %}"></script>
-  <script src="{% static 'admin/table/js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'admin/table/js/main.js' %}"></script>
+	<script src="{% static 'table/js/jquery.min.js' %}"></script>
+  <script src="{% static 'table/js/popper.js' %}"></script>
+  <script src="{% static 'table/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'table/js/main.js' %}"></script>
 
 	</body>
 {% endblock %}

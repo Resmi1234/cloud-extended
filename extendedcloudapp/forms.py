@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from phonenumber_field.modelfields import PhoneNumberField
 
-from extendedcloudapp.models import Login, Receiver, Owner, Upload, Request
+from extendedcloudapp.models import Login, Receiver, Owner, Upload, Request, Download
 
 
 class LoginRegister(UserCreationForm):
@@ -63,4 +63,11 @@ class UploadForm(forms.ModelForm):
 class RequestForm(forms.ModelForm):
     class Meta:
         model = Request
-        fields = ('Name', 'Email', 'File_Name', 'Message', 'Status')
+        fields = ('User','Name', 'Email', 'File_Name', 'Message', 'Status')
+
+
+class DownloadForm(forms.ModelForm):
+
+    class Meta:
+        model = Download
+        fields = ('dec_key',)

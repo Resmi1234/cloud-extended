@@ -13,7 +13,7 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="{% static 'Admin/Tables/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'table/css/style.css' %}">
 
 	</head>
 	<body>
@@ -32,7 +32,8 @@
 					    <thead class="thead-primary">
 					      <tr>
 					        <th>SI.No</th>
-					        <th>Name</th>
+							  <th>Owner</th>
+					        <th>Receiver</th>
 					        <th>Email</th>
 					        <th>File_Name</th>
 					        <th>Message</th>
@@ -46,6 +47,7 @@
 						{% for i in Request %}
 					      <tr>
 					        <th>{{forloop.counter}} </th>
+							  <th>{{Upload.User}}</th>
 					        <td>{{i.Name}}</td>
 					        <td>{{i.Email}}</td>
 					        <td>{{i.File_Name}}</td>
@@ -76,10 +78,10 @@
 		</div>
 	</section>
 
-	<script src="{% static 'admin/table/js/jquery.min.js' %}"></script>
-  <script src="{% static 'admin/table/js/popper.js' %}"></script>
-  <script src="{% static 'admin/table/js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'admin/table/js/main.js' %}"></script>
+	<script src="{% static 'table/js/jquery.min.js' %}"></script>
+  <script src="{% static 'table/js/popper.js' %}"></script>
+  <script src="{% static 'table/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'table/js/main.js' %}"></script>
 
 	</body>
 {% endblock %}

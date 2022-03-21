@@ -13,7 +13,7 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="{% static 'admin/table/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'table/css/style.css' %}">
 
 	</head>
 	<body>
@@ -38,6 +38,7 @@
 					        <th>Message</th>
                             <th>Status</th>
 					        <th>Request Status</th>
+
 <!--							<th>Reject</th>-->
 					      </tr>
 					    </thead>
@@ -51,12 +52,13 @@
 					        <td>{{i.Message}}</td>
                             <td>{{i.Status}}</td>
 
+
 <!--					        <td><a href="#" class="btn btn-primary">Update</a></td>-->
 							 <td>{% if i.Status == 0 %}
 
 							  <button type="submit" value="Approval pending" class="btn btn-warning">Approval pending</button>
 							  {% elif i.Status == 1 %}
-							   <button type="submit" value="Approval confirmed" class="btn btn-success">Accepted</button>
+							   <a href="{% url 'download_file' %}"  type="submit" value="Approval confirmed" class="btn btn-success"> Accepted</a>
 							  {% elif i.Status == 2 %}
 							   <button type="submit" value="Reject" class="btn btn-danger">Rejected</button>
 							  {% endif %}
@@ -73,10 +75,10 @@
 		</div>
 	</section>
 
-	<script src="{% static 'admin/table/js/jquery.min.js' %}"></script>
-  <script src="{% static 'admin/table/js/popper.js' %}"></script>
-  <script src="{% static 'admin/table/js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'admin/table/js/main.js' %}"></script>
+	<script src="{% static 'table/js/jquery.min.js' %}"></script>
+  <script src="{% static 'table/js/popper.js' %}"></script>
+  <script src="{% static 'table/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'table/js/main.js' %}"></script>
 
 	</body>
 {% endblock %}

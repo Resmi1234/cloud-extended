@@ -32,6 +32,11 @@ urlpatterns = [
     path('view_status', views.view_status, name='view_status'),
     path('view_user_download', views.view_user_download, name='view_user_download'),
     # path('clean_my_file', views.clean_my_file, name='clean_my_file'),
+    path('send_mail', views.send_mail, name='send_mail'),
+    path('send_mail_plain', views.SendPlainEmail, name='send_mail_plain'),
+    path('send_mail_plain_with_stored_file', views.send_mail_plain_with_stored_file, name='send_mail_plain_with_stored_file'),
+    path('send_mail_plain_with_file', views.send_mail_plain_with_file, name='send_mail_plain_with_file'),
+    path('download_file',views.download_file, name='download_file')
 
 
 

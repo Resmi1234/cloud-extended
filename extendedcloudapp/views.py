@@ -4,16 +4,18 @@ from cryptography.fernet import Fernet
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import EmailMessage
+from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 
 # Create your views here.
 
 
-from extendedcloudapp.forms import LoginRegister, ReceiverRegister, OwnerRegister, UploadForm, RequestForm
+from extendedcloudapp.forms import LoginRegister, ReceiverRegister, OwnerRegister, UploadForm, RequestForm, DownloadForm
 
-from extendedcloudapp.models import Upload, Owner, Receiver, Request
-
+from extendedcloudapp.models import Upload, Owner, Receiver, Request, Download
+from extendedcloudpro.settings import EMAIL_HOST_USER
 
 
 def index(request):
@@ -270,3 +272,55 @@ def view_user_download(request):
     req=Request.objects.filter(Status=1)
     return render(request, 'owner/view_user_download.html', {'Request': req})
 
+def send_mail(request):
+    return render(request, 'owner/send_mail.html')
+
+
+def SendPlainEmail(request):
+    message = request.POST.get('message', '')
+    subject = request.POST.get('subject', '')
+    mail_id = request.POST.get('email', '')
+    email = EmailMessage(subject, message, EMAIL_HOST_USER, [mail_id])
+    email.content_subtype = 'html'
+    email.send()
+    return HttpResponse("Sent")
+
+
+def send_mail_plain_with_stored_file(request):
+    message = request.POST.get('message', '')
+    subject = request.POST.get('subject', '')
+    mail_id = request.POST.get('email', '')
+    email = EmailMessage(subject, message, EMAIL_HOST_USER, [mail_id])
+    email.content_subtype = 'html'
+
+    file = open("key.key", "r")
+    email.attach("key.key", file.read(), 'text/plain')
+    email.send()
+    return HttpResponse("Sent")
+
+
+def send_mail_plain_with_file(request):
+    message = request.POST.get('message', '')
+    subject = request.POST.get('subject', '')
+    mail_id = request.POST.get('email', '')
+    email = EmailMessage(subject, message, EMAIL_HOST_USER, [mail_id])
+    email.content_subtype = 'html'
+
+    file = request.FILES['file']
+    email.attach(file.name, file.read(), file.content_type)
+
+    email.send()
+    return HttpResponse("Sent")
+
+def download_file(request):
+    form = DownloadForm()
+    u = request.user
+    if request.method == 'POST':
+        form = RequestForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.User = u
+            form.save()
+            return redirect('download_file')
+    else:
+        return render(request, 'receiver/download_file.html', {'form': form})

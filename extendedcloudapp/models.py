@@ -50,3 +50,7 @@ class Request(models.Model):
 
     def __str__(self):
         return self.Name
+
+
+class Download(models.Model):
+    dec_key= models.CharField(max_length=1000, null=True, blank=True)
