@@ -37,7 +37,8 @@ class Upload(models.Model):
     Title = models.CharField(max_length=50)
     Description = models.TextField()
     Files = models.FileField(upload_to='', unique=True)
-
+    Key = models.CharField(max_length=1000, null=True, blank=True)
+    Owner= models.ForeignKey(Owner,on_delete=models.CASCADE)
 
 class Request(models.Model):
     User = models.ForeignKey(Login, on_delete=models.DO_NOTHING)
@@ -52,5 +53,3 @@ class Request(models.Model):
         return self.Name
 
 
-class Download(models.Model):
-    dec_key= models.CharField(max_length=1000, null=True, blank=True)

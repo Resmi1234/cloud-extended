@@ -127,8 +127,8 @@ AUTH_USER_MODEL ='extendedcloudapp.Login'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'Enter your email id'
-EMAIL_HOST_PASSWORD = 'enter password'
+EMAIL_HOST_USER = 'ioresmi00@gmail.com'
+EMAIL_HOST_PASSWORD = 'ioresmi123'
 EMAIL_USE_TLS = True
 
 # Default primary key field type

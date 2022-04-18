@@ -1,32 +1,59 @@
 <!DOCTYPE html>
 {% extends 'receiver/data_receiver_panel.html' %}
 {% block content %}
-{% load crispy_forms_tags %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<div class="col-lg-6">
+ {% for i in Upload %}
+<div class="container" style="margin:0 auto;padding-top:100px;">
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
-        <div class="card-header"><strong> Download files </strong></div>
-        <div class="card-body card-block">
-            <form method="post">{% csrf_token %}
+        <h5 class="card-header">Download</h5>
+        <div class="card-body">
 
-                 {{form|crispy}}
-
-
-<div class="form-actions form-group text-center">
-                    <button type="submit" class="btn btn-success btn-sm">Download</button>
+            <form  id="basicform" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="form-group">
+                    <label for="inputUserName">Enter the Key</label>
+                    <input id="inputUserName" type="text" name="pkey" required="required"  class="form-control">
                 </div>
+<!--                <div class="form-group">-->
+<!--                    <label for="inputUserName">Enter Public Key</label>-->
+<!--                    <input id="inputUserName" type="text" name="prkey" required="required"  class="form-control">-->
+<!--                </div>-->
 
+                <div class="row">
+                    <div class="col-sm-6 pl-0">
+                    </div>
+                    <div class="col-sm-6 pl-0">
+                        <p class="text-right">
+<!--                            <button type="submit" class="btn btn-space btn-primary">Download Decrypted File</button>-->
+<!--                            <button type="reset" class="btn btn-space btn-secondary">Cancel</button>-->
+                       <a href= "{{i.Files.url}}dec_" type="submit" class="btn btn-space btn-primary">Download Decrypted File</a>
+     <button type="reset" class="btn btn-space btn-secondary">Cancel</button>
+                        </p>
+                    </div>
+                </div>
             </form>
         </div>
 
-    </div>
-</div>
+    </div><br><br>
+	{% if messages %}
+                {% for i in messages %}
+                    <div class="alert alert-success">{{i}}</div>
+                {% endfor %}
+            {% endif %}
 
+<!--					<center><h3>Download File</h3><a href="{{i.Files.url}}dec_" style="font-size:30px;" class="btn btn-danger" target="_blank"><i class="mdi mdi-arrow-down-bold-circle"></i></a>-->
+<!--			  </center>-->
+
+
+</div>
+</div>
+ {% endfor %}
 </body>
 {% endblock %}
 </html>

@@ -47,7 +47,7 @@
 						{% for i in Request %}
 					      <tr>
 					        <th>{{forloop.counter}} </th>
-							  <th>{{Upload.User}}</th>
+							  <th>{{i.Owner.Name}}</th>
 					        <td>{{i.Name}}</td>
 					        <td>{{i.Email}}</td>
 					        <td>{{i.File_Name}}</td>
